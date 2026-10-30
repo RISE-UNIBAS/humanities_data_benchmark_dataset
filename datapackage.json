@@ -1,0 +1,755 @@
+{
+  "created": "2026-10-29",
+  "description": "Every stored result of the Humanities Data Benchmark, as joinable Parquet tables with a metric dictionary. Apart from the framework's own test benchmarks, nothing is filtered: runs that failed, were never scored, or whose configuration is no longer known are rows carrying a status, not omissions.",
+  "keywords": [
+    "benchmark",
+    "LLM",
+    "digital humanities",
+    "OCR",
+    "HTR",
+    "information extraction"
+  ],
+  "licenses": [
+    {
+      "name": "CC-BY-4.0",
+      "path": "https://creativecommons.org/licenses/by/4.0/",
+      "title": "Creative Commons Attribution 4.0 International"
+    }
+  ],
+  "name": "humanities-data-benchmark-results",
+  "profile": "tabular-data-package",
+  "relatedIdentifiers": [
+    {
+      "note": "concept DOI of the software that produced these results",
+      "relatedIdentifier": "10.5281/zenodo.16941752",
+      "relatedIdentifierType": "DOI",
+      "relationType": "isSupplementTo"
+    }
+  ],
+  "resources": [
+    {
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "name": "metrics",
+      "path": "metrics.parquet",
+      "schema": {
+        "fields": [
+          {
+            "description": "Primary key: `<benchmark>.<level>.<source_metric>`.",
+            "name": "metric_id",
+            "type": "string"
+          },
+          {
+            "description": "Which benchmark defines this metric.",
+            "name": "benchmark",
+            "type": "string"
+          },
+          {
+            "description": "`run`, `request` or `field`.",
+            "name": "level",
+            "type": "string"
+          },
+          {
+            "description": "The key as the scorer writes it.",
+            "name": "source_metric",
+            "type": "string"
+          },
+          {
+            "description": "`performance` for a measurement, `count` for a tally, `parameter` for a setting the scorer was given. Averaging across roles is meaningless.",
+            "name": "metric_role",
+            "type": "string"
+          },
+          {
+            "description": "`ratio_0_1`, `error_rate`, `iou`, or a count noun.",
+            "name": "unit",
+            "type": "string"
+          },
+          {
+            "description": "`higher_better`, `lower_better`, or `not_applicable` for counts and parameters.",
+            "name": "direction",
+            "type": "string"
+          },
+          {
+            "description": "Lower bound where the metric has one.",
+            "name": "min_value",
+            "type": "number"
+          },
+          {
+            "description": "Upper bound where the metric has one.",
+            "name": "max_value",
+            "type": "number"
+          },
+          {
+            "description": "How this metric may be combined: `sum` for counts, `mean_over_requests`, `not_summable` for a ratio already averaged by the scorer, `not_aggregatable` for a parameter.",
+            "name": "aggregation",
+            "type": "string"
+          },
+          {
+            "description": "What the metric measures and how it was produced.",
+            "name": "description",
+            "type": "string"
+          }
+        ],
+        "primaryKey": [
+          "metric_id"
+        ]
+      }
+    },
+    {
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "name": "requests",
+      "path": "requests.parquet",
+      "schema": {
+        "fields": [
+          {
+            "description": "Foreign key to `runs.run_id`.",
+            "name": "run_id",
+            "type": "string"
+          },
+          {
+            "description": "The input's identity within its benchmark, taken from the request filename. A string: leading zeros and non-ASCII characters are significant. Null when the filename resolved to no id, which is a release-blocking diagnostic rather than a normal state.",
+            "name": "object_id",
+            "type": "string"
+          },
+          {
+            "description": "Denormalised from `runs`, for filtering without a join.",
+            "name": "test_id",
+            "type": "string"
+          },
+          {
+            "description": "Denormalised from `runs`.",
+            "name": "date",
+            "type": "string"
+          },
+          {
+            "description": "Denormalised from `runs`.",
+            "name": "benchmark",
+            "type": "string"
+          },
+          {
+            "description": "Path of the request file in the source archive.",
+            "name": "source_path",
+            "type": "string"
+          },
+          {
+            "description": "Integer line number, populated only when the whole object id matches `line_<digits>`. Presentation metadata; never a join key.",
+            "name": "line",
+            "type": "integer"
+          },
+          {
+            "description": "Provider from the test configuration.",
+            "name": "configured_provider",
+            "type": "string"
+          },
+          {
+            "description": "Model from the test configuration.",
+            "name": "configured_model",
+            "type": "string"
+          },
+          {
+            "description": "Provider as the stored response reports it. This and the configured provider are both exported because they disagree for aliased and routed models; neither is substituted for the other.",
+            "name": "response_provider",
+            "type": "string"
+          },
+          {
+            "description": "Model as the stored response reports it. For routed providers this is what actually served the request.",
+            "name": "response_model",
+            "type": "string"
+          },
+          {
+            "description": "Whether the stored file could be read: `ok`, `missing`, `unreadable`, `invalid`. Describes reading the file, not whether the model's own output parsed.",
+            "name": "parse_status",
+            "type": "string"
+          },
+          {
+            "description": "The timestamp exactly as stored. Naive local time throughout this corpus, with no offset recorded.",
+            "name": "timestamp_raw",
+            "type": "string"
+          },
+          {
+            "description": "UTC conversion, populated only where the source carries an offset. Null for every row in this release, because no stored timestamp does and the writing machine's timezone is not recorded.",
+            "name": "timestamp_utc",
+            "type": "string"
+          },
+          {
+            "description": "Wall-clock seconds the request took, as recorded. Absent on some error records.",
+            "name": "duration_s",
+            "type": "number"
+          },
+          {
+            "description": "Completion reason reported by the provider.",
+            "name": "finish_reason",
+            "type": "string"
+          },
+          {
+            "description": "True when the record carries an explicit error field. Null when it cannot be assessed, for instance when the file did not parse. Not a general success verdict.",
+            "name": "is_error",
+            "type": "boolean"
+          },
+          {
+            "description": "The recorded error text, where present. Records holding nothing but this and `finish_reason` `error` stand for answers that were billed but dropped unsaved by a runner bug (runs of 2026-09-16 to 2026-10-26); they are scored as misses, and their tokens and cost are unknown.",
+            "name": "error_message",
+            "type": "string"
+          },
+          {
+            "description": "Same vocabulary as `runs.scoring_status`, applied to this request's own stored score.",
+            "name": "scoring_status",
+            "type": "string"
+          },
+          {
+            "description": "Whether this request carries a real scoring observation, by its benchmark's own rule: a performance metric, or the complete set of counts a counting scorer uses. `business_letters` needs all three true-positive categories, since one is a partial observation. A parameter such as `iou_threshold` does not qualify, nor do the fixed placeholders the scaffold benchmarks emit. This is the column `runs.n_scored` counts.",
+            "name": "is_scored",
+            "type": "boolean"
+          },
+          {
+            "description": "Prompt tokens as recorded. Null when no usage block was stored, which is not the same as zero.",
+            "name": "input_tokens",
+            "type": "integer"
+          },
+          {
+            "description": "Completion tokens as recorded.",
+            "name": "output_tokens",
+            "type": "integer"
+          },
+          {
+            "description": "Total tokens as recorded. Not necessarily the sum of the two above.",
+            "name": "total_tokens",
+            "type": "integer"
+          },
+          {
+            "description": "Cached prompt tokens, where the provider reported them.",
+            "name": "cached_tokens",
+            "type": "integer"
+          },
+          {
+            "description": "Cache-write tokens, where reported.",
+            "name": "cache_creation_tokens",
+            "type": "integer"
+          },
+          {
+            "description": "Cache-read tokens, where reported.",
+            "name": "cache_read_tokens",
+            "type": "integer"
+          },
+          {
+            "description": "Billed reasoning tokens not already counted in `output_tokens`: the provider's own reasoning count, clamped to `total_tokens - input_tokens - output_tokens`, so input + output + reasoning = total. Zero for providers that count reasoning inside output tokens. Null when no total was recorded.",
+            "name": "reasoning_tokens",
+            "type": "integer"
+          },
+          {
+            "description": "Input cost as the request file holds it. Never recomputed here.",
+            "name": "stored_input_cost_usd",
+            "type": "number"
+          },
+          {
+            "description": "Output cost as the request file holds it.",
+            "name": "stored_output_cost_usd",
+            "type": "number"
+          },
+          {
+            "description": "Total cost as the request file holds it, reasoning included. Costed at run time against the price table then live, or filled in afterwards at the price in force on the run's date where the run recorded none.",
+            "name": "stored_estimated_cost_usd",
+            "type": "number"
+          },
+          {
+            "description": "Reasoning cost as the request file holds it: reasoning tokens at the output price in force on the run's date. Null where there was no reasoning outside output tokens or no price was in force.",
+            "name": "stored_reasoning_cost_usd",
+            "type": "number"
+          },
+          {
+            "description": "Recomputed here: `input_tokens / 1e6 \u00d7 the input price in force on the run's date`.",
+            "name": "derived_input_cost_usd",
+            "type": "number"
+          },
+          {
+            "description": "Recomputed here, from output tokens and the output price.",
+            "name": "derived_output_cost_usd",
+            "type": "number"
+          },
+          {
+            "description": "Recomputed here, from `reasoning_tokens` and the output price. Null when reasoning tokens are unknown.",
+            "name": "derived_reasoning_cost_usd",
+            "type": "number"
+          },
+          {
+            "description": "Sum of the derived input, output and reasoning costs, and null unless input and output were both derivable -- see `cost_provenance`. Uniform across the corpus and reproducible from the price table, but it is what the run would have cost at that date's prices, not what was charged.",
+            "name": "derived_total_cost_usd",
+            "type": "number"
+          },
+          {
+            "description": "`derived` when input, output and reasoning tokens were all known and priced. `derived_reasoning_unknown` when no total was recorded, so reasoning is unknown and the total covers input and output only. `partial_tokens` when only one of input and output was: the known component is exported, the total is null, and the missing side is never assumed to be zero. Otherwise why no cost could be derived at all: `no_price_in_table`, `no_tokens`, `no_model_identity`.",
+            "name": "cost_provenance",
+            "type": "string"
+          },
+          {
+            "description": "Which dated entry in the price table was used. Not the run's date: the nearest entry at or before it.",
+            "name": "pricing_bucket_date",
+            "type": "string"
+          },
+          {
+            "description": "How stale that entry was at the run's date. Large values mean the table had a gap, not that the price was wrong.",
+            "name": "pricing_age_days",
+            "type": "integer"
+          },
+          {
+            "description": "Input price used for the derived cost.",
+            "name": "pricing_input_price_per_million",
+            "type": "number"
+          },
+          {
+            "description": "Output price used for the derived cost.",
+            "name": "pricing_output_price_per_million",
+            "type": "number"
+          },
+          {
+            "description": "The name matched in the price table, after alias resolution.",
+            "name": "pricing_model_key",
+            "type": "string"
+          },
+          {
+            "description": "`response` when the stored response's own provider/model was priced, `config` when it fell back to the configured pair.",
+            "name": "pricing_identity_source",
+            "type": "string"
+          },
+          {
+            "description": "Provider-side conversation identifier, where recorded.",
+            "name": "conversation_id",
+            "type": "string"
+          },
+          {
+            "description": "Whether the record stored a parsed structured output. The parsed value itself is in the payload sidecar.",
+            "name": "has_parsed",
+            "type": "boolean"
+          },
+          {
+            "description": "Whether the record stored the raw provider envelope.",
+            "name": "has_raw_response",
+            "type": "boolean"
+          }
+        ],
+        "primaryKey": [
+          "run_id",
+          "object_id"
+        ]
+      }
+    },
+    {
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "name": "rescored_fields",
+      "path": "rescored_fields.parquet",
+      "schema": {
+        "fields": [
+          {
+            "description": "Foreign key to `runs.run_id`.",
+            "name": "run_id",
+            "type": "string"
+          },
+          {
+            "description": "Foreign key component to `requests`.",
+            "name": "object_id",
+            "type": "string"
+          },
+          {
+            "description": "Which benchmark scored this, from the test configuration.",
+            "name": "benchmark",
+            "type": "string"
+          },
+          {
+            "description": "The field compared, exactly as the scorer keyed it.",
+            "name": "field_path",
+            "type": "string"
+          },
+          {
+            "description": "Per-field similarity as the scorer computes it **today**. Null where the scorer assigns no similarity, as the counting scorers do.",
+            "name": "score",
+            "type": "number"
+          },
+          {
+            "description": "Whether re-scoring this input reproduces the score its run stored. Null when the run stored none to compare against. False means the ground truth or the scorer has changed since -- 12 inputs in this release.",
+            "name": "reproduces_stored_score",
+            "type": "boolean"
+          },
+          {
+            "description": "When the re-scoring ran. Not when the benchmark ran.",
+            "name": "rescored_date",
+            "type": "string"
+          },
+          {
+            "description": "Commit that last touched the benchmark's scorer at that point.",
+            "name": "scorer_revision",
+            "type": "string"
+          },
+          {
+            "description": "Commit that last touched the benchmark's ground truths.",
+            "name": "ground_truth_revision",
+            "type": "string"
+          },
+          {
+            "description": "Whether the scorer or ground truths had uncommitted changes when the re-scoring ran, which makes the two revisions above incomplete descriptions of the code that produced these numbers.",
+            "name": "scorer_dirty",
+            "type": "boolean"
+          }
+        ],
+        "primaryKey": [
+          "run_id",
+          "object_id",
+          "field_path"
+        ]
+      }
+    },
+    {
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "name": "runs",
+      "path": "runs.parquet",
+      "schema": {
+        "fields": [
+          {
+            "description": "Primary key: `<test_id>@<date>`. Identifies a stored run directory within this release. A test executed on another date is a different run.",
+            "name": "run_id",
+            "type": "string"
+          },
+          {
+            "description": "The test configuration's id, as the run directory is named. Preserved exactly, including variant spellings that no longer appear in the configuration file.",
+            "name": "test_id",
+            "type": "string"
+          },
+          {
+            "description": "The date folder the run was stored under, `YYYY-MM-DD`. Not a timestamp: it is the directory name, and the runner writes to it for the duration of a run.",
+            "name": "date",
+            "type": "string"
+          },
+          {
+            "description": "Which benchmark this run belongs to, from the test configuration. Null when the test id could not be resolved.",
+            "name": "benchmark",
+            "type": "string"
+          },
+          {
+            "description": "The benchmark version the run was made with: the version in force at its first request (inputs, prompts, schema and scorer as they then were), from the benchmark's version history. Null for a benchmark without one.",
+            "name": "benchmark_version",
+            "type": "string"
+          },
+          {
+            "description": "The version whose scorer and ground truth the stored scores stand under: the latest re-scoring of the benchmark made on or after the run's day, else `benchmark_version`. A re-scoring checks every stored run and labels only those whose scores changed, so unlabelled runs count too. Scores share a basis when the major number is the same; before 1.0.0, when 0.y is.",
+            "name": "benchmark_version_scored",
+            "type": "string"
+          },
+          {
+            "description": "How `benchmark_version` was found. `recorded`: the runner recorded it, with the benchmark's files as committed. `inferred`: from the run's time and when each version was committed. `ambiguous`: recorded while the benchmark's files had uncommitted changes, a run resumed from answers made with another benchmark state, or inferred for a run made earlier on the day a version took effect (or that day at an unknown time); the next version is also possible.",
+            "name": "benchmark_version_basis",
+            "type": "string"
+          },
+          {
+            "description": "Path of the run directory in the source archive, for tracing a row back to the bytes it came from.",
+            "name": "source_path",
+            "type": "string"
+          },
+          {
+            "description": "`matched` when the test id resolves in the configuration file, `unknown_test_id` when it does not. An unknown id keeps its exact spelling and its configuration-derived columns stay null.",
+            "name": "config_status",
+            "type": "string"
+          },
+          {
+            "description": "Provider named in the test configuration. May differ from the provider that actually served the requests -- see `requests.response_provider`.",
+            "name": "configured_provider",
+            "type": "string"
+          },
+          {
+            "description": "Model named in the test configuration. May differ from the model that actually served the requests.",
+            "name": "configured_model",
+            "type": "string"
+          },
+          {
+            "description": "Structured-output class the run requested, if any.",
+            "name": "dataclass",
+            "type": "string"
+          },
+          {
+            "description": "Sampling temperature configured for the run. Null when not configured, which is not the same as zero.",
+            "name": "temperature",
+            "type": "number"
+          },
+          {
+            "description": "System-role text configured for the run.",
+            "name": "role_description",
+            "type": "string"
+          },
+          {
+            "description": "Name of the prompt file used. The prompt's contents are not exported; prompts changed over the corpus and this records only which was named.",
+            "name": "prompt_file",
+            "type": "string"
+          },
+          {
+            "description": "The run's `rules` column verbatim, as a JSON string. Some benchmarks select which fields they score from it, so two runs of one benchmark with different rules are not directly comparable.",
+            "name": "rules_json",
+            "type": "string"
+          },
+          {
+            "description": "True when the configuration marks this test as deprecated.",
+            "name": "legacy_test",
+            "type": "boolean"
+          },
+          {
+            "description": "The benchmark's `display` metadata flag. True when the metadata loaded and did not set it to false; null when metadata could not be read.",
+            "name": "benchmark_display",
+            "type": "boolean"
+          },
+          {
+            "description": "The default analytical view excludes these. True when the test is legacy or the benchmark sets `display: false`; false only when both inputs are known and neither hides the run; null when either is unresolved. Filter on `hidden = false` rather than `hidden != true`: null is not a licence to include.",
+            "name": "hidden",
+            "type": "boolean"
+          },
+          {
+            "description": "Request files discovered in the run directory. The denominator for the coverage fractions below.",
+            "name": "n_requests",
+            "type": "integer"
+          },
+          {
+            "description": "Request files that parsed as JSON. Lower than `n_requests` when a stored file is malformed.",
+            "name": "n_valid_requests",
+            "type": "integer"
+          },
+          {
+            "description": "Requests whose stored record carries a truthy `error` or `error_message`. Not a general failure count: a request can fail without recording either.",
+            "name": "n_explicit_errors",
+            "type": "integer"
+          },
+          {
+            "description": "Requests where `requests.is_scored` is true -- a performance metric, or the complete counts a counting scorer uses. Not the scorer's own `n`, and it does not certify that every expected document was scored: it counts observations that exist, not observations that should.",
+            "name": "n_scored",
+            "type": "integer"
+          },
+          {
+            "description": "Whether a `scoring.json` file exists. True even when that file only records that scoring is not implemented.",
+            "name": "has_scoring",
+            "type": "boolean"
+          },
+          {
+            "description": "One of `missing`, `invalid`, `not_implemented` (the scorer wrote `niy`), `no_numeric_metrics`, `numeric_metrics_present`.",
+            "name": "scoring_status",
+            "type": "string"
+          },
+          {
+            "description": "Copied verbatim from the run's own cost summary.",
+            "name": "recorded_total_input_tokens",
+            "type": "integer"
+          },
+          {
+            "description": "Copied verbatim from the run's own cost summary.",
+            "name": "recorded_total_output_tokens",
+            "type": "integer"
+          },
+          {
+            "description": "Copied verbatim from the run's own cost summary. Excludes reasoning billed outside output tokens.",
+            "name": "recorded_total_tokens",
+            "type": "integer"
+          },
+          {
+            "description": "Copied verbatim from the run's own cost summary. The runner does not write it, so null does not mean zero; sum the request-level `reasoning_tokens` instead.",
+            "name": "recorded_total_reasoning_tokens",
+            "type": "integer"
+          },
+          {
+            "description": "Copied verbatim from the run's own cost summary. Null where reasoning was recorded but no price was in force.",
+            "name": "recorded_reasoning_cost_usd",
+            "type": "number"
+          },
+          {
+            "description": "Copied verbatim from the run's own cost summary. Not recomputed, and its completeness is unknown.",
+            "name": "recorded_input_cost_usd",
+            "type": "number"
+          },
+          {
+            "description": "Copied verbatim from the run's own cost summary.",
+            "name": "recorded_output_cost_usd",
+            "type": "number"
+          },
+          {
+            "description": "Copied verbatim from the run's own cost summary. The runner initialises this to zero and skips requests with no cost, so it may already be an understatement.",
+            "name": "recorded_total_cost_usd",
+            "type": "number"
+          },
+          {
+            "description": "Pricing bucket the run costed itself against, where its cost summary records one. Only the longer summary shape carries it.",
+            "name": "recorded_pricing_date",
+            "type": "string"
+          },
+          {
+            "description": "Input price the run costed itself against, where recorded.",
+            "name": "recorded_input_price_per_million",
+            "type": "number"
+          },
+          {
+            "description": "Output price the run costed itself against, where recorded.",
+            "name": "recorded_output_price_per_million",
+            "type": "number"
+          },
+          {
+            "description": "Requests in this run carrying a finite stored total cost, zero included.",
+            "name": "n_requests_with_stored_cost",
+            "type": "integer"
+          },
+          {
+            "description": "Sum of those stored costs. An observed subtotal, not an estimate of what the requests without one would have cost.",
+            "name": "observed_stored_cost_usd",
+            "type": "number"
+          },
+          {
+            "description": "`n_requests_with_stored_cost / n_requests`. Null for a run with no requests.",
+            "name": "stored_cost_coverage_fraction",
+            "type": "number"
+          },
+          {
+            "description": "True only when every saved request in this run has a stored cost. Says nothing about attempts that were never saved.",
+            "name": "stored_cost_complete_for_saved_requests",
+            "type": "boolean"
+          },
+          {
+            "description": "Requests in this run for which a cost could be derived from recorded tokens and the price table.",
+            "name": "n_requests_with_derived_cost",
+            "type": "integer"
+          },
+          {
+            "description": "Sum of those derived costs.",
+            "name": "observed_derived_cost_usd",
+            "type": "number"
+          },
+          {
+            "description": "`n_requests_with_derived_cost / n_requests`.",
+            "name": "derived_cost_coverage_fraction",
+            "type": "number"
+          },
+          {
+            "description": "The benchmark's tags, as a JSON string. Describes the benchmark at export time, not necessarily at run time.",
+            "name": "tags_json",
+            "type": "string"
+          },
+          {
+            "description": "The benchmark's contributors, as a JSON string.",
+            "name": "contributors_json",
+            "type": "string"
+          }
+        ],
+        "primaryKey": [
+          "run_id"
+        ]
+      }
+    },
+    {
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "name": "scores_long",
+      "path": "scores_long.parquet",
+      "schema": {
+        "fields": [
+          {
+            "description": "Foreign key to `runs.run_id`.",
+            "name": "run_id",
+            "type": "string"
+          },
+          {
+            "description": "Foreign key component to `requests`. Null for run-level observations.",
+            "name": "object_id",
+            "type": "string"
+          },
+          {
+            "description": "`run`, `request` or `field`.",
+            "name": "level",
+            "type": "string"
+          },
+          {
+            "description": "Which field a field-level observation refers to, preserved exactly as the scorer keyed it -- including the empty string, which is a real key for several thousand observations. Non-null exactly when `level` is `field`; that invariant is how the CSV distinguishes an empty path from a null one.",
+            "name": "field_path",
+            "type": "string"
+          },
+          {
+            "description": "Foreign key to `metrics.metric_id`. Scoped by benchmark and level, because the same metric name means different things in different benchmarks.",
+            "name": "metric_id",
+            "type": "string"
+          },
+          {
+            "description": "The observation. Finite numbers only; a non-numeric score is not represented here at all, and its absence is recorded in `scoring_status` instead.",
+            "name": "value",
+            "type": "number"
+          }
+        ],
+        "primaryKey": [
+          "run_id",
+          "object_id",
+          "level",
+          "field_path",
+          "metric_id"
+        ]
+      }
+    },
+    {
+      "compression": "gz",
+      "encoding": "utf-8",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "name": "coverage",
+      "path": "coverage.csv.gz",
+      "schema": {
+        "fields": [
+          {
+            "description": "Which exported table the column belongs to.",
+            "name": "table",
+            "type": "string"
+          },
+          {
+            "description": "The column being measured.",
+            "name": "column",
+            "type": "string"
+          },
+          {
+            "description": "How the rows were grouped: `global`, `benchmark`, `configured_provider`, `date`, or `benchmark+provider+date`.",
+            "name": "group_dimension",
+            "type": "string"
+          },
+          {
+            "description": "The group. `<null>` where the grouping column itself is null -- those rows are retained rather than dropped.",
+            "name": "group_value",
+            "type": "string"
+          },
+          {
+            "description": "Rows in this group. The denominator.",
+            "name": "n_rows",
+            "type": "number"
+          },
+          {
+            "description": "Rows where the column has a value.",
+            "name": "n_non_null",
+            "type": "number"
+          },
+          {
+            "description": "Rows where it does not. Null means not recorded, never an inferred zero.",
+            "name": "n_null",
+            "type": "number"
+          },
+          {
+            "description": "Rows where a numeric column holds a non-finite value. Zero throughout this release: the extractor rejects them, and the count is kept so that a future regression is visible rather than silent.",
+            "name": "n_invalid",
+            "type": "number"
+          },
+          {
+            "description": "`n_non_null / n_rows`.",
+            "name": "fraction_non_null",
+            "type": "number"
+          }
+        ]
+      }
+    }
+  ],
+  "schema_version": "1.3.0",
+  "sources": [
+    {
+      "note": "source commit ea9579e8110cf04a981d6af3d60303218e0f711f; source_manifest.jsonl.gz carries a SHA-256 of every file consumed",
+      "path": "results/",
+      "title": "Humanities Data Benchmark stored results"
+    }
+  ],
+  "title": "Humanities Data Benchmark: complete stored results",
+  "version": "2026-10-29.5"
+}

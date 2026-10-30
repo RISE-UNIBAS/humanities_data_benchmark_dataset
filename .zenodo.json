@@ -1,0 +1,90 @@
+{
+  "upload_type": "dataset",
+  "title": "Humanities Data Benchmark: complete stored results",
+  "description": "<p>Every stored result of the Humanities Data Benchmark as joinable tables: 3,805 runs, 166,380 requests and 3,902,043 metric observations covering data through 2026-10-29. Apart from the framework's own test benchmarks, nothing is filtered: unscored, failed and unresolved runs are rows carrying a status rather than omissions.</p><p>Tables in Parquet, a metric dictionary, coverage, diagnostics and a source manifest, with the original request and scoring JSON as gzipped JSON Lines. See README.md and CHANGELOG.md.</p>",
+  "creators": [
+    {
+      "name": "Hindermann, Maximilian",
+      "orcid": "0000-0002-9337-4655"
+    },
+    {
+      "name": "Marti, Sorin",
+      "orcid": "0000-0002-9541-1202"
+    },
+    {
+      "name": "Alberto, Anthea",
+      "orcid": "0009-0007-0430-0050"
+    },
+    {
+      "name": "Binnenkade, Alexandra",
+      "orcid": "0000-0002-9518-7212"
+    },
+    {
+      "name": "Bosse, Arno",
+      "orcid": "0000-0003-3681-1289"
+    },
+    {
+      "name": "Burkhardt, Sven",
+      "orcid": "0009-0001-4954-4426"
+    },
+    {
+      "name": "Decker, Eric",
+      "orcid": "0000-0003-3035-2413"
+    },
+    {
+      "name": "Frick, Pema",
+      "orcid": "0000-0002-8733-7161"
+    },
+    {
+      "name": "Kasper, Lea",
+      "orcid": "0000-0002-4671-1700"
+    },
+    {
+      "name": "Leonte, Ana-Maria",
+      "orcid": "0009-0005-4678-2807"
+    },
+    {
+      "name": "Lienhard, Sven",
+      "orcid": "0009-0005-9981-4286"
+    },
+    {
+      "name": "Losada Palenzuela, José Luis",
+      "orcid": "0000-0002-6530-1328"
+    },
+    {
+      "name": "Müller, Gabriel",
+      "orcid": "0000-0001-8320-5148"
+    },
+    {
+      "name": "Serif, Ina",
+      "orcid": "0000-0003-2419-4252"
+    },
+    {
+      "name": "Spadini, Elena",
+      "orcid": "0000-0002-4522-2833"
+    },
+    {
+      "name": "Wullschleger, Tabea",
+      "orcid": "0000-0001-9841-0005"
+    },
+    {
+      "name": "Zúñiga, Franziska",
+      "orcid": "0000-0002-8844-4903"
+    }
+  ],
+  "access_right": "open",
+  "license": "cc-by-4.0",
+  "keywords": [
+    "benchmark",
+    "LLM",
+    "digital humanities"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "10.5281/zenodo.16941752",
+      "relation": "isSupplementTo",
+      "resource_type": "software",
+      "scheme": "doi"
+    }
+  ]
+}

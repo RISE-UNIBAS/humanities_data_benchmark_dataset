@@ -1,0 +1,3 @@
+# Committed bytes are the released bytes: no line-ending conversion, so every
+# file still matches SHA256SUMS after a checkout on any platform.
+* -text

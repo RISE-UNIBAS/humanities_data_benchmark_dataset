@@ -1,27 +1,32 @@
 {
   "upload_type": "dataset",
-  "title": "Humanities Data Benchmark: complete stored results",
-  "description": "<p>Every stored result of the Humanities Data Benchmark as joinable tables: 3,805 runs, 166,380 requests and 3,902,043 metric observations covering data through 2026-10-29. Apart from the framework's own test benchmarks, nothing is filtered: unscored, failed and unresolved runs are rows carrying a status rather than omissions.</p><p>Tables in Parquet, a metric dictionary, coverage, diagnostics and a source manifest, with the original request and scoring JSON as gzipped JSON Lines. See README.md and CHANGELOG.md.</p>",
+  "title": "RISE Humanities Data Benchmark Dataset: Complete Stored Results",
+  "description": "<p>The RISE Humanities Data Benchmark, maintained by RISE (Research and Infrastructure Support) at the University of Basel, evaluates large language models on tasks from humanities research: transcribing, interpreting and extracting structured data from historical documents such as letters, library cards, newspaper advertisements and medieval manuscripts, scored against ground truths defined by domain experts, with the cost and runtime of every request.</p><p>Every stored result of the Humanities Data Benchmark as joinable tables: 3,805 runs, 166,380 requests and 3,902,043 metric observations covering data through 2026-10-29. Apart from the framework's own test benchmarks, nothing is filtered: unscored, failed and unresolved runs are rows carrying a status rather than omissions.</p><p>Tables in Parquet, a metric dictionary, coverage, diagnostics and a source manifest, with the original request and scoring JSON as gzipped JSON Lines. A new release follows each release of the benchmark software; each is a complete snapshot. README.md documents the tables and how to use them, CHANGELOG.md what changed between releases.</p>",
   "creators": [
     {
       "name": "Hindermann, Maximilian",
-      "orcid": "0000-0002-9337-4655"
+      "orcid": "0000-0002-9337-4655",
+      "affiliation": "University of Basel"
     },
     {
       "name": "Marti, Sorin",
-      "orcid": "0000-0002-9541-1202"
+      "orcid": "0000-0002-9541-1202",
+      "affiliation": "University of Basel"
     },
     {
       "name": "Alberto, Anthea",
-      "orcid": "0009-0007-0430-0050"
+      "orcid": "0009-0007-0430-0050",
+      "affiliation": "University of Basel"
     },
     {
       "name": "Binnenkade, Alexandra",
-      "orcid": "0000-0002-9518-7212"
+      "orcid": "0000-0002-9518-7212",
+      "affiliation": "University of Basel"
     },
     {
       "name": "Bosse, Arno",
-      "orcid": "0000-0003-3681-1289"
+      "orcid": "0000-0003-3681-1289",
+      "affiliation": "University of Basel"
     },
     {
       "name": "Burkhardt, Sven",
@@ -29,19 +34,23 @@
     },
     {
       "name": "Decker, Eric",
-      "orcid": "0000-0003-3035-2413"
+      "orcid": "0000-0003-3035-2413",
+      "affiliation": "University of Basel"
     },
     {
       "name": "Frick, Pema",
-      "orcid": "0000-0002-8733-7161"
+      "orcid": "0000-0002-8733-7161",
+      "affiliation": "University of Basel"
     },
     {
       "name": "Kasper, Lea",
-      "orcid": "0000-0002-4671-1700"
+      "orcid": "0000-0002-4671-1700",
+      "affiliation": "University of Basel"
     },
     {
       "name": "Leonte, Ana-Maria",
-      "orcid": "0009-0005-4678-2807"
+      "orcid": "0009-0005-4678-2807",
+      "affiliation": "University of Basel"
     },
     {
       "name": "Lienhard, Sven",
@@ -49,11 +58,13 @@
     },
     {
       "name": "Losada Palenzuela, José Luis",
-      "orcid": "0000-0002-6530-1328"
+      "orcid": "0000-0002-6530-1328",
+      "affiliation": "University of Basel"
     },
     {
       "name": "Müller, Gabriel",
-      "orcid": "0000-0001-8320-5148"
+      "orcid": "0000-0001-8320-5148",
+      "affiliation": "University of Basel"
     },
     {
       "name": "Serif, Ina",
@@ -65,25 +76,51 @@
     },
     {
       "name": "Wullschleger, Tabea",
-      "orcid": "0000-0001-9841-0005"
+      "orcid": "0000-0001-9841-0005",
+      "affiliation": "University of Basel"
     },
     {
       "name": "Zúñiga, Franziska",
-      "orcid": "0000-0002-8844-4903"
+      "orcid": "0000-0002-8844-4903",
+      "affiliation": "University of Basel"
     }
   ],
   "access_right": "open",
   "license": "cc-by-4.0",
   "keywords": [
     "benchmark",
-    "LLM",
-    "digital humanities"
+    "LLM evaluation",
+    "large language models",
+    "vision-language models",
+    "digital humanities",
+    "cultural heritage",
+    "historical documents",
+    "optical character recognition",
+    "handwritten text recognition",
+    "document understanding",
+    "information extraction",
+    "evaluation results",
+    "model outputs",
+    "inference cost",
+    "reproducible research"
   ],
   "related_identifiers": [
     {
       "identifier": "10.5281/zenodo.16941752",
       "relation": "isSupplementTo",
       "resource_type": "software",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.5334/johd.470",
+      "relation": "isDescribedBy",
+      "resource_type": "publication-article",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.5334/johd.481",
+      "relation": "isDescribedBy",
+      "resource_type": "publication-article",
       "scheme": "doi"
     }
   ]

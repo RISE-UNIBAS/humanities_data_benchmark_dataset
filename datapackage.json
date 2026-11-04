@@ -3,11 +3,20 @@
   "description": "Every stored result of the Humanities Data Benchmark, as joinable Parquet tables with a metric dictionary. Apart from the framework's own test benchmarks, nothing is filtered: runs that failed, were never scored, or whose configuration is no longer known are rows carrying a status, not omissions.",
   "keywords": [
     "benchmark",
-    "LLM",
+    "LLM evaluation",
+    "large language models",
+    "vision-language models",
     "digital humanities",
-    "OCR",
-    "HTR",
-    "information extraction"
+    "cultural heritage",
+    "historical documents",
+    "optical character recognition",
+    "handwritten text recognition",
+    "document understanding",
+    "information extraction",
+    "evaluation results",
+    "model outputs",
+    "inference cost",
+    "reproducible research"
   ],
   "licenses": [
     {
@@ -745,11 +754,11 @@
   "schema_version": "1.3.0",
   "sources": [
     {
-      "note": "source commit ea9579e8110cf04a981d6af3d60303218e0f711f; source_manifest.jsonl.gz carries a SHA-256 of every file consumed",
+      "note": "source commit 41141a5d49be3d3af74f1c7dca95d54712d1ece1; source_manifest.jsonl.gz carries a SHA-256 of every file consumed",
       "path": "results/",
       "title": "Humanities Data Benchmark stored results"
     }
   ],
-  "title": "Humanities Data Benchmark: complete stored results",
-  "version": "2026-10-29.5"
+  "title": "RISE Humanities Data Benchmark Dataset: Complete Stored Results",
+  "version": "2026-10-29.6"
 }

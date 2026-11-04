@@ -1,6 +1,6 @@
-# Humanities Data Benchmark: complete stored results
+# RISE Humanities Data Benchmark Dataset: Complete Stored Results
 
-Release `2026-10-29.5` · schema `1.3.0` · data through 2026-10-29 · source commit `ea9579e81`
+Release `2026-10-29.6` · schema `1.3.0` · data through 2026-10-29 · source commit `41141a5d4`
 
 Every stored result of the Humanities Data Benchmark, as joinable **Parquet** tables.
 
@@ -9,7 +9,7 @@ Every stored result of the Humanities Data Benchmark, as joinable **Parquet** ta
 | `runs` | 3,805 | one stored run directory |
 | `requests` | 166,380 | one stored request file |
 | `scores_long` | 3,902,043 | one numeric metric observation, as recorded |
-| `rescored_fields` | 407,164 | one field observation from a subsequent scoring pass |
+| `rescored_fields` | 404,680 | one field observation from a subsequent scoring pass |
 | `metrics` | 124 | one metric definition |
 
 ## What is in this package
@@ -237,7 +237,7 @@ To rebuild this dataset, use the source repository at the commit recorded in
 
 ```console
 python -m scripts.compare.generate_compare_detail
-python -m scripts.export_dataset --dataset-version 2026-10-29.5
+python -m scripts.export_dataset --dataset-version 2026-10-29.6
 ```
 
 `source_manifest.jsonl` records a SHA-256 hash for each consumed input. `committed` says
@@ -265,7 +265,7 @@ Benchmark input documents are not included in this export.
 
 Three version numbers answer three different questions.
 
-- **The dataset version** (`2026-10-29.5`) names a release: `<data cutoff>.<serial>`, the last
+- **The dataset version** (`2026-10-29.6`) names a release: `<data cutoff>.<serial>`, the last
   day of runs it holds, and a serial that counts rebuilds at the same cutoff. Each release is
   a full snapshot, not an addition to the previous one: stored results are corrected and
   re-scored between releases, so the same run can carry a different score in two releases.
@@ -282,4 +282,4 @@ Three version numbers answer three different questions.
 ## Citation
 
 Use the citation metadata in [CITATION.cff](CITATION.cff) and identify the dataset version
-used in the analysis. This is the first release: its DOI is minted at deposit and is listed on the Zenodo record, and every later release carries it in CITATION.cff.
+used in the analysis. Cite the version DOI of the release you used; the concept DOI [10.5281/zenodo.23821532](https://doi.org/10.5281/zenodo.23821532) names the dataset as a whole and resolves to the newest release. CITATION.cff lists both.

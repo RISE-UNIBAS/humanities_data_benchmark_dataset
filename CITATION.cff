@@ -1,55 +1,66 @@
 cff-version: 1.2.0
 message: If you use this dataset, please cite it using these metadata.
 type: dataset
-title: "Humanities Data Benchmark: complete stored results"
+title: "RISE Humanities Data Benchmark Dataset: Complete Stored Results"
 abstract: >-
   Every stored result of the Humanities Data Benchmark as joinable tables:
   3,805 runs, 166,380 requests and 3,902,043 metric observations covering data through 2026-10-29.
   Apart from the framework's own test benchmarks, nothing is filtered: unscored,
   failed and unresolved runs are rows carrying a
   status rather than omissions.
-version: 2026-10-29.5
+version: 2026-10-29.6
 license: CC-BY-4.0
 authors:
   - family-names: "Hindermann"
     given-names: "Maximilian"
     orcid: "https://orcid.org/0000-0002-9337-4655"
+    affiliation: "University of Basel"
   - family-names: "Marti"
     given-names: "Sorin"
     orcid: "https://orcid.org/0000-0002-9541-1202"
+    affiliation: "University of Basel"
   - family-names: "Alberto"
     given-names: "Anthea"
     orcid: "https://orcid.org/0009-0007-0430-0050"
+    affiliation: "University of Basel"
   - family-names: "Binnenkade"
     given-names: "Alexandra"
     orcid: "https://orcid.org/0000-0002-9518-7212"
+    affiliation: "University of Basel"
   - family-names: "Bosse"
     given-names: "Arno"
     orcid: "https://orcid.org/0000-0003-3681-1289"
+    affiliation: "University of Basel"
   - family-names: "Burkhardt"
     given-names: "Sven"
     orcid: "https://orcid.org/0009-0001-4954-4426"
   - family-names: "Decker"
     given-names: "Eric"
     orcid: "https://orcid.org/0000-0003-3035-2413"
+    affiliation: "University of Basel"
   - family-names: "Frick"
     given-names: "Pema"
     orcid: "https://orcid.org/0000-0002-8733-7161"
+    affiliation: "University of Basel"
   - family-names: "Kasper"
     given-names: "Lea"
     orcid: "https://orcid.org/0000-0002-4671-1700"
+    affiliation: "University of Basel"
   - family-names: "Leonte"
     given-names: "Ana-Maria"
     orcid: "https://orcid.org/0009-0005-4678-2807"
+    affiliation: "University of Basel"
   - family-names: "Lienhard"
     given-names: "Sven"
     orcid: "https://orcid.org/0009-0005-9981-4286"
   - family-names: "Losada Palenzuela"
     given-names: "Jos\u00e9 Luis"
     orcid: "https://orcid.org/0000-0002-6530-1328"
+    affiliation: "University of Basel"
   - family-names: "M\u00fcller"
     given-names: "Gabriel"
     orcid: "https://orcid.org/0000-0001-8320-5148"
+    affiliation: "University of Basel"
   - family-names: "Serif"
     given-names: "Ina"
     orcid: "https://orcid.org/0000-0003-2419-4252"
@@ -59,16 +70,68 @@ authors:
   - family-names: "Wullschleger"
     given-names: "Tabea"
     orcid: "https://orcid.org/0000-0001-9841-0005"
+    affiliation: "University of Basel"
   - family-names: "Z\u00fa\u00f1iga"
     given-names: "Franziska"
     orcid: "https://orcid.org/0000-0002-8844-4903"
+    affiliation: "University of Basel"
 keywords:
-  - benchmark
-  - LLM
-  - digital humanities
-identifiers: []   # the first version DOI is minted at deposit
+  - "benchmark"
+  - "LLM evaluation"
+  - "large language models"
+  - "vision-language models"
+  - "digital humanities"
+  - "cultural heritage"
+  - "historical documents"
+  - "optical character recognition"
+  - "handwritten text recognition"
+  - "document understanding"
+  - "information extraction"
+  - "evaluation results"
+  - "model outputs"
+  - "inference cost"
+  - "reproducible research"
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.23821532
+    description: All versions
+  - type: doi
+    value: 10.5281/zenodo.23821533
+    description: Version 2026-10-29.5
 references:
   - type: software
     title: Humanities Data Benchmark
     doi: 10.5281/zenodo.16941752
     notes: the software that produced these results
+  - type: article
+    title: "From Experiments to Epistemic Practice: The RISE Humanities Data Benchmark"
+    authors:
+      - family-names: "Hindermann"
+        given-names: "Maximilian"
+      - family-names: "Kasper"
+        given-names: "Lea Katharina"
+      - family-names: "Marti"
+        given-names: "Sorin"
+      - family-names: "Bosse"
+        given-names: "Arno"
+    journal: "Journal of Open Humanities Data"
+    year: 2026
+    volume: 12
+    issue: 1
+    doi: 10.5334/johd.470
+  - type: article
+    title: "The RISE Humanities Data Benchmark: A Framework for Evaluating Large Language Models for Humanities Tasks"
+    authors:
+      - family-names: "Hindermann"
+        given-names: "Maximilian"
+      - family-names: "Marti"
+        given-names: "Sorin"
+      - family-names: "Kasper"
+        given-names: "Lea Katharina"
+      - family-names: "Bosse"
+        given-names: "Arno"
+    journal: "Journal of Open Humanities Data"
+    year: 2026
+    volume: 12
+    issue: 1
+    doi: 10.5334/johd.481

@@ -1,14 +1,14 @@
 # RISE Humanities Data Benchmark Dataset: Complete Stored Results
 
-Release `2026-10-29.6` · schema `1.3.0` · data through 2026-10-29 · source commit `41141a5d4`
+Release `2026-11-18.1` · schema `1.3.0` · data through 2026-11-18 · source commit `5207db486`
 
 Every stored result of the Humanities Data Benchmark, as joinable **Parquet** tables.
 
 | Table | Rows | Unit of observation |
 |---|---|---|
-| `runs` | 3,805 | one stored run directory |
-| `requests` | 166,380 | one stored request file |
-| `scores_long` | 3,902,043 | one numeric metric observation, as recorded |
+| `runs` | 3,861 | one stored run directory |
+| `requests` | 168,916 | one stored request file |
+| `scores_long` | 3,970,787 | one numeric metric observation, as recorded |
 | `rescored_fields` | 404,680 | one field observation from a subsequent scoring pass |
 | `metrics` | 124 | one metric definition |
 
@@ -28,13 +28,13 @@ Every stored result of the Humanities Data Benchmark, as joinable **Parquet** ta
 - `runs.parquet`
 - `scores_long.parquet`
 - `source_manifest.jsonl.gz`
-- `payloads/` (137 files)
+- `payloads/` (149 files)
 
 Text files are gzipped so that every file clears the size limits of the repository this
 release is committed to; `packaging.json` maps each one back to the name and SHA-256 the
 build recorded, so it can be reconciled with `manifest.json`.
 
-`payloads/` holds the complete original request and scoring JSON as gzipped JSON Lines, one file per benchmark and run month (`<benchmark>/<YYYY-MM>.jsonl.gz`), plus `run_scoring.jsonl.gz` and the re-scoring records in `rescored_detail.jsonl.gz`: 137 files. Most of their bytes are third-party model output; see Licence.
+`payloads/` holds the complete original request and scoring JSON as gzipped JSON Lines, one file per benchmark and run month (`<benchmark>/<YYYY-MM>.jsonl.gz`), plus `run_scoring.jsonl.gz` and the re-scoring records in `rescored_detail.jsonl.gz`: 149 files. Most of their bytes are third-party model output; see Licence.
 
 ## Reading it
 
@@ -237,7 +237,7 @@ To rebuild this dataset, use the source repository at the commit recorded in
 
 ```console
 python -m scripts.compare.generate_compare_detail
-python -m scripts.export_dataset --dataset-version 2026-10-29.6
+python -m scripts.export_dataset --dataset-version 2026-11-18.1
 ```
 
 `source_manifest.jsonl` records a SHA-256 hash for each consumed input. `committed` says
@@ -265,7 +265,7 @@ Benchmark input documents are not included in this export.
 
 Three version numbers answer three different questions.
 
-- **The dataset version** (`2026-10-29.6`) names a release: `<data cutoff>.<serial>`, the last
+- **The dataset version** (`2026-11-18.1`) names a release: `<data cutoff>.<serial>`, the last
   day of runs it holds, and a serial that counts rebuilds at the same cutoff. Each release is
   a full snapshot, not an addition to the previous one: stored results are corrected and
   re-scored between releases, so the same run can carry a different score in two releases.

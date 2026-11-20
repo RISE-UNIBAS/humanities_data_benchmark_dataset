@@ -1,14 +1,14 @@
 # RISE Humanities Data Benchmark Dataset: Complete Stored Results
 
-Release `2026-11-18.1` · schema `1.3.0` · data through 2026-11-18 · source commit `5207db486`
+Release `2026-11-20.1` · schema `1.3.0` · data through 2026-11-20 · source commit `37de7a364`
 
 Every stored result of the Humanities Data Benchmark, as joinable **Parquet** tables.
 
 | Table | Rows | Unit of observation |
 |---|---|---|
-| `runs` | 3,861 | one stored run directory |
-| `requests` | 168,916 | one stored request file |
-| `scores_long` | 3,970,787 | one numeric metric observation, as recorded |
+| `runs` | 3,903 | one stored run directory |
+| `requests` | 170,818 | one stored request file |
+| `scores_long` | 4,022,061 | one numeric metric observation, as recorded |
 | `rescored_fields` | 404,680 | one field observation from a subsequent scoring pass |
 | `metrics` | 124 | one metric definition |
 
@@ -94,7 +94,7 @@ The following columns describe the supplementary evaluations:
 |---|---|
 | `score` | Per-field value returned by the scorer; null where no numeric similarity is assigned, including evaluations based on counts |
 | `rescored_date` | Date of the subsequent scoring pass, distinct from the original run date and export date |
-| `scorer_revision` | Recorded commit that last changed the benchmark's scorer file |
+| `scorer_revision` | Recorded commit that last changed the benchmark's scorer code: its Python files and the shared scoring code (`benchmark_base.py`, `scoring_helper.py`) |
 | `ground_truth_revision` | Recorded commit that last changed the benchmark's ground truths |
 | `scorer_dirty` | Whether uncommitted scorer or ground-truth changes were reported; true means the revision identifiers do not fully describe the evaluated state |
 | `reproduces_stored_score` | Whether the recomputed numeric metrics for the input equal its stored numeric metrics; null when no comparison result is available |
@@ -237,7 +237,7 @@ To rebuild this dataset, use the source repository at the commit recorded in
 
 ```console
 python -m scripts.compare.generate_compare_detail
-python -m scripts.export_dataset --dataset-version 2026-11-18.1
+python -m scripts.export_dataset --dataset-version 2026-11-20.1
 ```
 
 `source_manifest.jsonl` records a SHA-256 hash for each consumed input. `committed` says
@@ -265,7 +265,7 @@ Benchmark input documents are not included in this export.
 
 Three version numbers answer three different questions.
 
-- **The dataset version** (`2026-11-18.1`) names a release: `<data cutoff>.<serial>`, the last
+- **The dataset version** (`2026-11-20.1`) names a release: `<data cutoff>.<serial>`, the last
   day of runs it holds, and a serial that counts rebuilds at the same cutoff. Each release is
   a full snapshot, not an addition to the previous one: stored results are corrected and
   re-scored between releases, so the same run can carry a different score in two releases.

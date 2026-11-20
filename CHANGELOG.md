@@ -5,12 +5,20 @@ figures change between releases both because results are added and because corre
 made, and a MAJOR benchmark version re-scores every stored run of its benchmark. An analysis
 should cite the exact version it used.
 
-## 2026-11-18.1
+## 2026-11-20.1
 
-Schema 1.3.0. Data through 2026-11-18, built from source commit `5207db486`, software 0.8.2.
+Schema 1.3.0. Data through 2026-11-20, built from source commit `37de7a364`, software 0.8.3.
 
-- 3,861 runs (+56) and 168,916 requests (+2,536) since 2026-10-29.6.
-- No benchmark changed version since 2026-10-29.6.
+- 3,903 runs (+42) and 170,818 requests (+1,902) since 2026-11-18.1.
+- Benchmark versions since 2026-11-18.1:
+  - `personnel_cards` 4.0.0 (major, 2026-11-20): an empty card earns F1 1 only for a {"rows": [...]} answer, not for an unparseable or wrapped one; all stored runs re-scored. Scores of all its stored runs were re-based.
+
+## 2026-11-18.1 — released 2026-11-18
+
+DOI [10.5281/zenodo.24342744](https://doi.org/10.5281/zenodo.24342744). Schema 1.3.0. Data through 2026-11-18, source commit `5207db486`, software 0.8.2.
+
+- 3,861 runs, 168,916 requests.
+- Benchmark versions: `bibliographic_data` 2.0.0, `blacklist_cards` 2.0.0, `book_advert_xml` 2.0.0, `business_letters` 3.0.0, `company_lists` 3.0.0, `duty_rosters` 2.0.0, `fraktur_adverts` 2.0.0, `general_meeting_minutes` 2.0.0, `library_cards` 3.0.0, `magazine_pages` 1.0.1, `medieval_manuscripts` 2.0.1, `personnel_cards` 3.0.0.
 
 ## 2026-10-29.6 — released 2026-11-04
 

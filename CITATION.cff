@@ -4,11 +4,11 @@ type: dataset
 title: "RISE Humanities Data Benchmark Dataset: Complete Stored Results"
 abstract: >-
   Every stored result of the Humanities Data Benchmark as joinable tables:
-  3,861 runs, 168,916 requests and 3,970,787 metric observations covering data through 2026-11-18.
+  3,903 runs, 170,818 requests and 4,022,061 metric observations covering data through 2026-11-20.
   Apart from the framework's own test benchmarks, nothing is filtered: unscored,
   failed and unresolved runs are rows carrying a
   status rather than omissions.
-version: 2026-11-18.1
+version: 2026-11-20.1
 license: CC-BY-4.0
 authors:
   - family-names: "Hindermann"
@@ -101,6 +101,9 @@ identifiers:
   - type: doi
     value: 10.5281/zenodo.23944033
     description: Version 2026-10-29.6
+  - type: doi
+    value: 10.5281/zenodo.24342744
+    description: Version 2026-11-18.1
 references:
   - type: software
     title: Humanities Data Benchmark
